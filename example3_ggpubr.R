@@ -12,35 +12,36 @@ plot1 <- gghistogram(data=data3, x="WGHT",
 print(plot1)
 
 ## box plot
-p <- ggboxplot(data=data3, x="HTN", y="WGHT", color="HTN") +
-  stat_compare_means(method = "t.test", label.x.npc = "middle")
-plot2 <- ggpar(p,
+plot2 <- ggboxplot(data=data3, x="HTN", y="WGHT", color="HTN",
                main="Weight distrubution by HTN history",
                ylab="Weight(kg)",
                xlab="HTN Dx history",
-               legend="none")
+               legend="none") +
+  stat_compare_means(method = "t.test", label.x.npc = "middle")
+
 print(plot2)
 
+#세그룹
 my_comparisons <- list(c("1", "2"), c("2", "3"), c("1", "3"))
-p <- ggboxplot(data=data3, x="Q_SMK_YN", y="WGHT", color="Q_SMK_YN") +
-  stat_compare_means(comparisons = my_comparisons) +
-  stat_compare_means(label.y = 150) +
-  scale_x_discrete(labels=c("Never", "Ex-smoker", "Current"))
-plot3 <- ggpar(p,
+plot3 <- ggboxplot(data=data3, x="Q_SMK_YN", y="WGHT", color="Q_SMK_YN",
                main="Weight distrubution by smoking",
                ylab="Weight(kg)",
                xlab="Smoking",
-               legend="none")
+               legend="none") +
+  stat_compare_means(comparisons = my_comparisons) +
+  stat_compare_means(label.y = 150) +
+  scale_x_discrete(labels=c("Never", "Ex-smoker", "Current"))
+
 print(plot3)
 
 ## scatter plot
-p <- ggscatter(data=data3, x="HGHT", y="WGHT", 
+plot4 <- ggscatter(data=data3, x="HGHT", y="WGHT", 
                add = "reg.line", conf.int = TRUE,
-               add.params = list(color = "navy", fill = "lightgray")) +
-  stat_cor(method = "pearson")
-plot4 <- ggpar(p,
+               add.params = list(color = "navy", fill = "lightgray"),
                ylab="Weight(kg)",
-               xlab="Height(cm)")
+               xlab="Height(cm)") +
+  stat_cor(method = "pearson")
+
 print(plot4)
 
 p <- ggscatter(data=data3, x="HGHT", y="WGHT", color="HTN", alpha=0.5,
