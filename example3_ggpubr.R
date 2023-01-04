@@ -1,7 +1,7 @@
 ## histogram
 data <- read.csv("https://raw.githubusercontent.com/jinseob2kim/R-skku-biohrs/main/data/example_g1e.csv")
 
-data3 <- data[,HTN:=as.factor(ifelse(Q_PHX_DX_HTN==1,"Yes","NO"))]
+data3 <- data2[,HTN:=as.factor(ifelse(Q_PHX_DX_HTN==1,"Yes","NO"))]
 
 plot1 <- gghistogram(data=data3, x="WGHT",
                      color="HTN", fill = "HTN", add="mean",
@@ -44,12 +44,12 @@ plot4 <- ggscatter(data=data3, x="HGHT", y="WGHT",
 
 print(plot4)
 
-p <- ggscatter(data=data3, x="HGHT", y="WGHT", color="HTN", alpha=0.5,
-               add = "reg.line", conf.int = TRUE) +
-  stat_cor(aes(color = HTN))
-plot5 <- ggpar(p,
+plot5 <- ggscatter(data=data3, x="HGHT", y="WGHT", color="HTN", alpha=0.5,
+               add = "reg.line", conf.int = TRUE,
                ylab="Weight(kg)",
-               xlab="Height(cm)")
+               xlab="Height(cm)") +
+  stat_cor(aes(color = HTN))
+
 print(plot5)
 
 ## ggarange
